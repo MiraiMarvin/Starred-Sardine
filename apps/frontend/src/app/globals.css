@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer base {
+  html {
+    font-family: Inter, system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .primary-600 {
+    @apply bg-blue-600;
+  }
+  
+  .primary-700 {
+    @apply bg-blue-700;
+  }
+  
+  .primary-500 {
+    @apply bg-blue-500;
+  }
+  
+  .text-primary-600 {
+    @apply text-blue-600;
+  }
+  
+  .text-primary-500 {
+    @apply text-blue-500;
+  }
+  
+  .border-primary-500 {
+    @apply border-blue-500;
+  }
+  
+  .focus\:ring-primary-500:focus {
+    @apply ring-blue-500;
+  }
+  
+  .focus\:border-primary-500:focus {
+    @apply border-blue-500;
+  }
+  
+  .hover\:bg-primary-700:hover {
+    @apply bg-blue-700;
+  }
+  
+  .hover\:text-primary-500:hover {
+    @apply text-blue-500;
+  }
+  
+  .focus\:ring-primary-500:focus {
+    @apply ring-blue-500;
+  }
+}

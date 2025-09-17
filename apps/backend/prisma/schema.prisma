@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                    String    @id @default(cuid())
+  email                 String    @unique
+  password              String
+  firstName             String
+  lastName              String
+  isEmailVerified       Boolean   @default(false)
+  emailVerificationToken String?   @unique
+  passwordResetToken    String?   @unique
+  passwordResetExpires  DateTime?
+  role                  String    @default("USER") // USER, ADMIN, PREMIUM
+  
+  // Stripe fields
+  stripeCustomerId      String?   @unique
+  subscriptionStatus    String    @default("INACTIVE") // ACTIVE, INACTIVE, CANCELLED, PAST_DUE
+  subscriptionId        String?   @unique
+  
+  // Relations
+  payments              Payment[]
+  sessions              Session[]
+  
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  
+  @@map("sessions")
+}
+
+model Payment {
+  id              String        @id @default(cuid())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stripePaymentId String        @unique
+  amount          Int           // En centimes
+  currency        String        @default("eur")
+  status          String        // PENDING, SUCCEEDED, FAILED, CANCELLED
+  description     String?
+  metadata        String?       // JSON stringifié
+  createdAt       DateTime      @default(now())
+  
+  @@map("payments")
+}
+
+
