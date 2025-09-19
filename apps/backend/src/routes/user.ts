@@ -8,7 +8,7 @@ import { Role } from '../types';
 const router = Router();
 
 
-router.use(authenticate);
+router.use('/', authenticate);
 
 
 router.get('/profile', asyncHandler(async (req: AuthenticatedRequest, res: Response) => {

@@ -1,7 +1,7 @@
 {
-  "name": "ecommerce-boilerplate",
+  "name": "starred-sardine-monorepo",
   "version": "1.0.0",
-  "description": "E-commerce boilerplate avec Next.js et Prisma",
+  "description": "Application boilerplate réutilisable avec Next.js, Express et Prisma",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -9,23 +9,31 @@
   ],
   "scripts": {
     "dev": "turbo run dev",
+    "dev:frontend": "turbo run dev --filter=frontend",
+    "dev:backend": "turbo run dev --filter=backend",
     "build": "turbo run build",
     "start": "turbo run start",
     "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "type-check": "turbo run type-check",
     "test": "turbo run test",
-    "db:push": "cd apps/backend && npx prisma db push",
-    "db:migrate": "cd apps/backend && npx prisma migrate dev",
-    "db:studio": "cd apps/backend && npx prisma studio"
+    "clean": "turbo run clean",
+    "db:push": "turbo run db:push --filter=backend",
+    "db:migrate": "turbo run db:migrate --filter=backend",
+    "db:studio": "turbo run db:studio --filter=backend",
+    "db:seed": "cd apps/backend && npm run db:seed",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "eslint": "^8.54.0",
     "prettier": "^3.1.0",
-    "turbo": "^1.10.14",
+    "turbo": "^2.5.6",
     "typescript": "^5.2.2"
   },
-  "packageManager": "npm@9.0.0",
-  "dependencies": {
-    "passport-github2": "^0.1.12",
-    "passport-google-oauth20": "^2.0.0"
+  "packageManager": "npm@10.0.0",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }
