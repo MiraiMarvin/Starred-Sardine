@@ -43,14 +43,3 @@ export const updateProfileSchema = z.object({
 export const forgotPasswordSchema = z.object({
   email: z.string().email('Email invalide'),
 });
-
-export const changePasswordSchema = z.object({
-  currentPassword: z.string().min(1, 'Le mot de passe actuel est requis'),
-  newPassword: z
-    .string()
-    .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-      'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial'
-    ),
-});

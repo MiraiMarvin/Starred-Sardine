@@ -70,16 +70,6 @@ const Navbar: React.FC = () => {
                   Dashboard
                 </Link>
 
-                {/* Lien Admin (visible seulement pour les admins) */}
-                {user.role === 'ADMIN' && (
-                  <Link
-                    href="/admin"
-                    className="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium"
-                  >
-                    Administration
-                  </Link>
-                )}
-
                 {/* Menu utilisateur */}
                 <Menu as="div" className="relative">
                   <Menu.Button className="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">

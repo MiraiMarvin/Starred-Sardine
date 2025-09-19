@@ -112,9 +112,6 @@ export const userAPI = {
   updateProfile: (data: Partial<User>) => 
     api.put<ApiResponse<User>>('/users/profile', data),
   
-  changePassword: (data: { currentPassword: string; newPassword: string }) => 
-    api.put<ApiResponse>('/users/password', data),
-  
   getDashboard: () => 
     api.get<ApiResponse>('/users/dashboard'),
   
@@ -123,15 +120,4 @@ export const userAPI = {
   
   deleteAccount: () => 
     api.delete<ApiResponse>('/users/account'),
-};
-
-export const adminAPI = {
-  getAllUsers: () => 
-    api.get<ApiResponse<User[]>>('/admin/users'),
-  
-  updateUserRole: (userId: string, role: string) => 
-    api.put<ApiResponse<User>>(`/admin/users/${userId}/role`, { role }),
-  
-  getStats: () => 
-    api.get<ApiResponse<{ totalUsers: number; adminUsers: number; premiumUsers: number; regularUsers: number }>>('/admin/stats'),
 };

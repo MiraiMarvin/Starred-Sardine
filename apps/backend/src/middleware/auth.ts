@@ -2,16 +2,27 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { prisma } from '../lib/prisma';
 import { createError } from './errorHandler';
-import { AuthenticatedRequest, Role } from '../types';
 
-export { AuthenticatedRequest }; // Export du type
+// Import du type Role depuis Prisma
+type Role = 'USER' | 'ADMIN' | 'PREMIUM';
 
-// Middleware d'authentification principal
+export interface AuthenticatedRequest extends Request {
+  user?: {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    role: Role;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+}
+
 export const authenticate = async (
-  req: AuthenticatedRequest,
-  res: Response,
+  req: AuthenticatedRequest, 
+  res: Response, 
   next: NextFunction
-): Promise<void> => {
+) => {
   try {
 
     const token = req.cookies.token || req.header('Authorization')?.replace('Bearer ', '');
@@ -51,7 +62,7 @@ export const authenticate = async (
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
-      role: user.role as Role,
+      role: user.role,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt
     };

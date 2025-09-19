@@ -163,21 +163,11 @@ export const logout = async (req: Request, res: Response) => {
 };
 
 export const verifyEmail = async (req: Request, res: Response) => {
-  // Récupérer le token depuis les params (GET) ou le body (POST)
-  const token = req.params.token || req.body.token;
-
-  logger.info(`Tentative de vérification email - Method: ${req.method}, Token reçu: ${token ? 'présent' : 'absent'}`);
-
-  if (!token) {
-    logger.error('Token de vérification manquant');
-    throw createError('Token de vérification manquant', 400);
-  }
+  const { token } = req.params;
 
   try {
     jwt.verify(token, process.env.JWT_SECRET!);
-    logger.info('Token JWT valide');
   } catch (error) {
-    logger.error('Token JWT invalide:', error);
     throw createError('Token de vérification invalide ou expiré', 400);
   }
 
@@ -186,11 +176,8 @@ export const verifyEmail = async (req: Request, res: Response) => {
   });
 
   if (!user) {
-    logger.error('Aucun utilisateur trouvé avec ce token');
     throw createError('Token de vérification invalide', 400);
   }
-
-  logger.info(`Utilisateur trouvé: ${user.email}, déjà vérifié: ${user.isEmailVerified}`);
 
   await prisma.user.update({
     where: { id: user.id },
@@ -243,7 +230,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
   logger.info(`Demande de réinitialisation de mot de passe pour: ${email}`);
 
-  return res.json({
+  res.json({
     success: true,
     message: 'Si un compte avec cet email existe, vous recevrez un lien de réinitialisation.'
   });

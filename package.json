@@ -1,7 +1,7 @@
 {
-  "name": "starred-sardine-monorepo",
+  "name": "ecommerce-boilerplate",
   "version": "1.0.0",
-  "description": "Application boilerplate réutilisable avec Next.js, Express et Prisma",
+  "description": "E-commerce boilerplate avec Next.js et Prisma",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -9,36 +9,23 @@
   ],
   "scripts": {
     "dev": "turbo run dev",
-    "dev:frontend": "turbo run dev --filter=frontend",
-    "dev:backend": "turbo run dev --filter=backend",
-    "dev:with-mail": "concurrently \"npm run mail:dev\" \"npm run dev\"",
     "build": "turbo run build",
     "start": "turbo run start",
     "lint": "turbo run lint",
-    "lint:fix": "turbo run lint:fix",
-    "type-check": "turbo run type-check",
     "test": "turbo run test",
-    "clean": "turbo run clean",
-    "db:push": "turbo run db:push --filter=backend",
-    "db:migrate": "turbo run db:migrate --filter=backend",
-    "db:studio": "turbo run db:studio --filter=backend",
-    "db:seed": "cd apps/backend && npm run db:seed",
-    "mail:dev": "maildev --web 1080 --smtp 1025",
-    "mail:open": "open http://localhost:1080",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\""
+    "db:push": "cd apps/backend && npx prisma db push",
+    "db:migrate": "cd apps/backend && npx prisma migrate dev",
+    "db:studio": "cd apps/backend && npx prisma studio"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1",
     "eslint": "^8.54.0",
-    "maildev": "^2.2.1",
     "prettier": "^3.1.0",
-    "turbo": "^2.5.6",
+    "turbo": "^1.10.14",
     "typescript": "^5.2.2"
   },
-  "packageManager": "npm@10.0.0",
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+  "packageManager": "npm@9.0.0",
+  "dependencies": {
+    "passport-github2": "^0.1.12",
+    "passport-google-oauth20": "^2.0.0"
   }
 }
