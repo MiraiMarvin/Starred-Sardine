@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/context/AuthContext';
 import { RegisterData } from '@/lib/api';
+import OAuthSection from '@/components/auth/OAuthSection';
 
 interface RegisterFormProps {
     onSuccess?: () => void;
@@ -244,6 +245,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess }) => {
                     )}
                 </button>
             </div>
+
+            <OAuthSection />
 
             <div className="text-center">
                 <p className="text-sm text-gray-600">

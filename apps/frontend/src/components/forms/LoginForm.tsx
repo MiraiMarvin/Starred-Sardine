@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/context/AuthContext';
 import { LoginCredentials } from '@/lib/api';
+import OAuthSection from '@/components/auth/OAuthSection';
 
 interface LoginFormProps {
   onSuccess?: () => void;
@@ -146,6 +147,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
             )}
           </button>
         </div>
+
+        <OAuthSection />
       </form>
     </div>
   );

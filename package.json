@@ -18,10 +18,14 @@
     "db:studio": "cd apps/backend && npx prisma studio"
   },
   "devDependencies": {
-    "turbo": "^1.10.14",
-    "typescript": "^5.2.2",
     "eslint": "^8.54.0",
-    "prettier": "^3.1.0"
+    "prettier": "^3.1.0",
+    "turbo": "^1.10.14",
+    "typescript": "^5.2.2"
   },
-  "packageManager": "npm@9.0.0"
+  "packageManager": "npm@9.0.0",
+  "dependencies": {
+    "passport-github2": "^0.1.12",
+    "passport-google-oauth20": "^2.0.0"
+  }
 }

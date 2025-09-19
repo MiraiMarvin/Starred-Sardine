@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #f8fafc;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        }
+
+        .email-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .email-content {
+            padding: 40px 30px;
+        }
+
+        .email-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .email-text {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-center {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+            margin: 30px 0;
+        }
+
+        .email-footer {
+            background-color: #f7fafc;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 14px;
+        }
+
+        .code-box {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .email-header,
+            .email-content,
+            .email-footer {
+                padding: 20px;
+            }
+
+            .email-title {
+                font-size: 20px;
+            }
+
+            .btn {
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="email-header">
+            <div class="logo">Starred Sardine</div>
+            <div style="color: rgba(255,255,255,0.9); font-size: 14px;">Votre boilerplate de confiance</div>
+        </div>
+
+        <!-- Content -->
+        <div class="email-content">
+            <div class="email-title">Paiement confirmé ✅</div>
+
+<div class="email-text">
+    Bonjour Jean,
+</div>
+
+<div class="email-text">
+    Nous vous confirmons que votre paiement a été traité avec succès ! 🎉
+</div>
+
+<!-- Détails du paiement -->
+<div style="background-color: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 20px; margin: 25px 0;">
+    <h3 style="color: #0c4a6e; margin: 0 0 15px 0; font-size: 18px;">📄 Détails de votre commande</h3>
+    
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td style="padding: 8px 0; font-weight: 600; color: #374151;">N° de transaction :</td>
+            <td style="padding: 8px 0; color: #6b7280;">txn_1234567890</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0; font-weight: 600; color: #374151;">Date :</td>
+            <td style="padding: 8px 0; color: #6b7280;">19/09/2025</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0; font-weight: 600; color: #374151;">Montant :</td>
+            <td style="padding: 8px 0; color: #059669; font-weight: 600; font-size: 18px;">29.99 EUR</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0; font-weight: 600; color: #374151;">Statut :</td>
+            <td style="padding: 8px 0; color: #059669; font-weight: 600;">✅ Confirmé</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0; font-weight: 600; color: #374151;">Description :</td>
+            <td style="padding: 8px 0; color: #6b7280;">Abonnement Premium - 1 mois</td>
+        </tr>
+    </table>
+</div>
+
+<div class="email-text">
+    🎊 <strong>Félicitations !</strong> Votre abonnement premium a été activé. Vous avez maintenant accès à toutes les fonctionnalités premium de Starred Sardine.
+</div>
+
+<div class="btn-center">
+    <a href="http://localhost:3000/invoices/txn_1234567890" class="btn">Télécharger la facture</a>
+</div>
+
+<div class="divider"></div>
+
+<div class="email-text">
+    <strong>Informations de facturation :</strong>
+</div>
+
+<div style="background-color: #f9fafb; padding: 15px; border-radius: 6px; margin: 15px 0;">
+    Jean Dupont<br>
+    jean.dupont@example.com<br>
+    123 Rue de la Paix, 75001 Paris
+</div>
+
+<div class="email-text">
+    Un reçu détaillé a également été envoyé à <strong>jean.dupont@example.com</strong>.
+</div>
+
+<div class="email-text">
+    Des questions ? Notre équipe support est disponible à <a href="mailto:support@localhost.com" style="color: #667eea;">support@localhost.com</a>
+</div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="email-footer">
+            <div class="footer-text">
+                Vous recevez cet email car vous êtes inscrit sur Starred Sardine.
+            </div>
+            <div class="footer-text">
+                Paris, France
+            </div>
+            <div class="footer-links">
+                <a href="http://localhost:3000/unsubscribe?token=">Se désabonner</a>
+                <a href="http://localhost:3000/privacy">Politique de confidentialité</a>
+                <a href="http://localhost:3000/contact">Contact</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

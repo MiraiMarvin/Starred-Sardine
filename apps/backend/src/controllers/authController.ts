@@ -230,7 +230,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
   logger.info(`Demande de réinitialisation de mot de passe pour: ${email}`);
 
-  res.json({
+  return res.json({
     success: true,
     message: 'Si un compte avec cet email existe, vous recevrez un lien de réinitialisation.'
   });

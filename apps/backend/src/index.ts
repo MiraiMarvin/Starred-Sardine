@@ -3,13 +3,18 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
 import dotenv from 'dotenv';
+import passport from 'passport';
+import './lib/passport'; // Import pour initialiser les stratégies
 
 import { errorHandler } from './middleware/errorHandler';
 import { authRoutes } from './routes/auth';
 import { userRoutes } from './routes/user';
 import { paymentRoutes } from './routes/payment';
 import { webhookRoutes } from './routes/webhook';
+import { emailRoutes } from './routes/email';
+import { adminRoutes } from './routes/admin';
 import { logger } from './utils/logger';
 import { prisma } from './lib/prisma';
 
@@ -25,6 +30,21 @@ app.use(cors({
   credentials: true
 }));
 app.use(cookieParser());
+
+// Configuration des sessions pour Passport
+app.use(session({
+  secret: process.env.JWT_SECRET || 'fallback-secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 24 * 60 * 60 * 1000 // 24 heures
+  }
+}));
+
+// Initialisation de Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 const limiter = rateLimit({
@@ -45,6 +65,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use('/api/emails', emailRoutes);
+app.use('/api/admin', adminRoutes);
 
 
 app.get('/health', (req, res) => {
