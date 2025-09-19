@@ -16,10 +16,8 @@ export const api = axios.create({
 // Intercepteur pour ajouter le token automatiquement
 api.interceptors.request.use(
   (config) => {
-    const token = Cookies.get('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+    // Les cookies httpOnly sont automatiquement envoyés avec withCredentials: true
+    // Pas besoin de lire le cookie côté client
     return config;
   },
   (error) => Promise.reject(error)
@@ -40,8 +38,7 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         // Si le refresh échoue, rediriger vers la page de connexion
-        Cookies.remove('token');
-        Cookies.remove('refreshToken');
+        // Les cookies httpOnly seront automatiquement supprimés par le serveur
         window.location.href = '/auth/login';
         return Promise.reject(refreshError);
       }
@@ -70,6 +67,7 @@ export interface User {
   name?: string; // Pour compatibilité
   avatar?: string;
   role: string;
+  isEmailVerified?: boolean;
   createdAt: string;
   updatedAt: string;
 }

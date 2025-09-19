@@ -41,12 +41,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const token = Cookies.get('token');
-      if (!token) {
-        setLoading(false);
-        return;
-      }
-
+      // Ne pas vérifier le cookie côté client car il est httpOnly
+      // Faire directement l'appel API qui enverra automatiquement le cookie
       const response = await authAPI.getCurrentUser();
       if (response.data.success && response.data.data) {
         setUser(response.data.data);
@@ -54,6 +50,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error) {
       console.error('Erreur lors de la vérification de l\'authentification:', error);
       // Ne pas afficher d'erreur ici car c'est normal si l'utilisateur n'est pas connecté
+      setUser(null);
     } finally {
       setLoading(false);
     }
@@ -104,16 +101,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       await authAPI.logout();
       setUser(null);
-      Cookies.remove('token');
-      Cookies.remove('refreshToken');
       toast.success('Déconnexion réussie');
       router.push('/');
     } catch (error) {
       console.error('Erreur de déconnexion:', error);
       // Même en cas d'erreur, on déconnecte l'utilisateur côté client
       setUser(null);
-      Cookies.remove('token');
-      Cookies.remove('refreshToken');
       router.push('/');
     }
   };

@@ -372,7 +372,8 @@ export const getCurrentUser = async (req: AuthenticatedRequest, res: Response) =
       role: true,
       subscriptionStatus: true,
       isEmailVerified: true,
-      createdAt: true
+      createdAt: true,
+      updatedAt: true
     }
   });
 

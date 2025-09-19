@@ -15,6 +15,7 @@ import { paymentRoutes } from './routes/payment';
 import { webhookRoutes } from './routes/webhook';
 import { emailRoutes } from './routes/email';
 import { adminRoutes } from './routes/admin';
+import stripeRoutes from './routes/stripe';
 import { logger } from './utils/logger';
 import { prisma } from './lib/prisma';
 
@@ -67,6 +68,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/emails', emailRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/stripe', stripeRoutes);
 
 
 app.get('/health', (req, res) => {
