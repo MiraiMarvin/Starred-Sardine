@@ -7,15 +7,13 @@ import { logger } from '../utils/logger';
 // Configuration du transporteur email
 const createTransporter = () => {
   if (process.env.NODE_ENV === 'development') {
-    // Pour le développement, utiliser Ethereal Email (compte test)
+    // Pour le développement, utiliser MailDev
     return nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      auth: {
-        user: 'ethereal.user@ethereal.email',
-        pass: 'ethereal.pass'
-      }
-    });
+      host: process.env.SMTP_HOST || 'localhost',
+      port: parseInt(process.env.SMTP_PORT || '1025'),
+      secure: false, // MailDev n'utilise pas SSL
+      ignoreTLS: true // Ignorer TLS pour MailDev
+    } as any); // Type assertion pour contourner les problèmes de typage strict
   }
 
   // Pour la production, utiliser les variables d'environnement
@@ -90,21 +88,25 @@ export const emailService = {
       });
 
       const mailOptions = {
-        from: `"${getCommonVariables().companyName}" <${process.env.FROM_EMAIL}>`,
+        from: `"${getCommonVariables().companyName}" <${process.env.FROM_EMAIL || 'noreply@localhost.com'}>`,
         to,
         subject,
         html
       };
 
+      // En développement, toujours envoyer via MailDev ET sauvegarder le preview
       if (process.env.NODE_ENV === 'development') {
-        // En développement, sauvegarder le preview
         await emailService.previewEmail(templateName, variables);
         logger.info(`Email preview généré pour: ${templateName}`);
-        console.log(`📧 Email envoyé à ${to}: ${subject}`);
-        return { messageId: 'dev-preview' };
       }
 
       const result = await transporter.sendMail(mailOptions);
+      
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`📧 Email envoyé via MailDev à ${to}: ${subject}`);
+        console.log(`🌐 Consultez MailDev: http://localhost:1080`);
+      }
+      
       logger.info(`Email envoyé avec succès à ${to}`, { messageId: result.messageId });
       return result;
     } catch (error) {

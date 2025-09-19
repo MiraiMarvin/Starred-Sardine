@@ -163,11 +163,21 @@ export const logout = async (req: Request, res: Response) => {
 };
 
 export const verifyEmail = async (req: Request, res: Response) => {
-  const { token } = req.params;
+  // Récupérer le token depuis les params (GET) ou le body (POST)
+  const token = req.params.token || req.body.token;
+
+  logger.info(`Tentative de vérification email - Method: ${req.method}, Token reçu: ${token ? 'présent' : 'absent'}`);
+
+  if (!token) {
+    logger.error('Token de vérification manquant');
+    throw createError('Token de vérification manquant', 400);
+  }
 
   try {
     jwt.verify(token, process.env.JWT_SECRET!);
+    logger.info('Token JWT valide');
   } catch (error) {
+    logger.error('Token JWT invalide:', error);
     throw createError('Token de vérification invalide ou expiré', 400);
   }
 
@@ -176,8 +186,11 @@ export const verifyEmail = async (req: Request, res: Response) => {
   });
 
   if (!user) {
+    logger.error('Aucun utilisateur trouvé avec ce token');
     throw createError('Token de vérification invalide', 400);
   }
+
+  logger.info(`Utilisateur trouvé: ${user.email}, déjà vérifié: ${user.isEmailVerified}`);
 
   await prisma.user.update({
     where: { id: user.id },

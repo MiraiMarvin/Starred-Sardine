@@ -23,6 +23,7 @@ router.post('/register', asyncHandler(register));
 router.post('/login', asyncHandler(login));
 router.post('/logout', asyncHandler(logout));
 router.get('/verify-email/:token', asyncHandler(verifyEmail));
+router.post('/verify-email', asyncHandler(verifyEmail));
 router.post('/forgot-password', asyncHandler(forgotPassword));
 router.post('/reset-password/:token', asyncHandler(resetPassword));
 router.post('/refresh-token', asyncHandler(refreshToken));
